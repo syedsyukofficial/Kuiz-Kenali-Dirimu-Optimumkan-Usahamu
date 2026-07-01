@@ -123,6 +123,32 @@
   .bar{flex:1; height:9px; background:rgba(30,53,96,.12); border-radius:99px; overflow:hidden; position:relative}
   .bar i{position:absolute; left:0; top:0; height:100%; border-radius:99px; background:linear-gradient(90deg,var(--gold-deep),var(--gold)); width:0; transition:width .9s cubic-bezier(.4,.1,.2,1)}
 
+  /* softened profile header */
+  .cue{font-family:var(--disp); letter-spacing:.2em; text-transform:uppercase; font-size:10px; color:var(--gold-deep); text-align:center; margin-top:10px; font-weight:600}
+  .disc{text-align:center; font-size:11.5px; color:#8a7c5f; margin-top:9px; font-style:italic; line-height:1.55}
+  .disc em{color:#6b5e42; font-style:italic}
+
+  /* score breakdown */
+  .bgroup{margin-bottom:16px}
+  .bgroup.last{margin-bottom:0}
+  .glabel{font-family:var(--disp); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:9px}
+  .brow{display:flex; align-items:center; gap:10px; margin-bottom:8px}
+  .brow:last-child{margin-bottom:0}
+  .bn{font-family:var(--disp); font-size:13px; color:#cdd6ea; width:80px; flex-shrink:0}
+  .brow.lead .bn{color:#fff; font-weight:600}
+  .mbar{flex:1; height:9px; background:rgba(255,255,255,.09); border-radius:99px; overflow:hidden; position:relative}
+  .mbar i{position:absolute; left:0; top:0; height:100%; width:0; border-radius:99px;
+    background:linear-gradient(90deg,rgba(169,130,30,.5),rgba(212,168,54,.5)); transition:width .9s cubic-bezier(.4,.1,.2,1)}
+  .brow.lead .mbar i{background:linear-gradient(90deg,var(--gold-deep),var(--gold-soft))}
+  .bp{font-family:var(--disp); font-size:12.5px; width:40px; text-align:right; flex-shrink:0; font-weight:600; color:var(--muted)}
+  .brow.lead .bp{color:var(--gold-soft)}
+
+  /* challenge card */
+  .warncard{border-color:rgba(224,155,155,.28)}
+  .warncard h3{color:#e79b9b}
+  .warncard h3::after{background:rgba(224,155,155,.22)}
+  .b.warn{color:#e79b9b}
+
   .block{margin-top:20px}
   .block h3{font-family:var(--disp); font-size:13px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:flex; align-items:center; gap:8px}
   .block h3::after{content:""; flex:1; height:1px; background:var(--line)}
@@ -173,6 +199,8 @@ const Q = [
     opts:[['KIRI','Pecahkan langkah demi langkah'],['KANAN','Cari idea kreatif luar kotak']]},
   {dim:'A', sec:'Bahagian 1 · Cara Otak Bekerja', q:'Saya paling selesa bila ada…',
     opts:[['KIRI','Jadual & peraturan yang jelas'],['KANAN','Kebebasan & ruang fleksibel']]},
+  {dim:'A', sec:'Bahagian 1 · Cara Otak Bekerja', q:'Saya lebih tertarik kepada…',
+    opts:[['KIRI','Fakta & bukti yang tepat'],['KANAN','Kemungkinan & idea besar']]},
   // Bahagian B — VAK
   {dim:'B', sec:'Bahagian 2 · Gaya Terima Maklumat', q:'Saya paling faham arahan bila…',
     opts:[['V','Melihat gambar, video atau contoh'],['A','Mendengar penjelasan lisan'],['K','Mencuba sendiri terus']]},
@@ -184,6 +212,8 @@ const Q = [
     opts:[['V','Wajahnya'],['A','Suara & cara ia bercakap'],['K','Aktiviti yang kami buat bersama']]},
   {dim:'B', sec:'Bahagian 2 · Gaya Terima Maklumat', q:'Untuk faham konsep yang susah, saya suka…',
     opts:[['V','Lukis rajah / carta alir'],['A','Terangkan & bincang kuat-kuat'],['K','Buat contoh praktikal / latih tubi']]},
+  {dim:'B', sec:'Bahagian 2 · Gaya Terima Maklumat', q:'Yang paling bantu saya ingat dalam dewan…',
+    opts:[['V','Bayangkan nota / rajah berwarna'],['A','Dengar semula penjelasan dalam kepala'],['K','Ingat pergerakan tangan menulis']]},
   // Bahagian C — Personaliti
   {dim:'C', sec:'Bahagian 3 · Sumber Tenaga', q:'Selepas seharian bersama ramai orang, saya rasa…',
     opts:[['I','Letih — perlu masa bersendirian'],['E','Bersemangat — mahu terus bersosial']]},
@@ -195,6 +225,8 @@ const Q = [
     opts:[['I','Berfikir dalam diri sendiri'],['E','Bercakap dengan orang lain']]},
   {dim:'C', sec:'Bahagian 3 · Sumber Tenaga', q:'Bila tertekan, saya lebih suka…',
     opts:[['I','Bersendiri & refleksi'],['E','Keluar & jumpa kawan']]},
+  {dim:'C', sec:'Bahagian 3 · Sumber Tenaga', q:'Idea terbaik saya biasanya datang bila…',
+    opts:[['I','Bersendirian & tenang'],['E','Berbual & bertukar fikiran']]},
 ];
 
 // ---------- RECOMMENDATION CONTENT ----------
@@ -233,6 +265,19 @@ const BRAIN = {
   SEIMBANG:'Anda seorang <b>pemikir bersepadu</b> — rangka gambaran besar dahulu, kemudian isi butiran secara tersusun. Gabungan terbaik kedua-dua dunia.'
 };
 
+// Cabaran / risiko yang perlu diberi perhatian ikut kecenderungan
+const CHAL = {
+  KIRI:['Boleh terlalu fokus pada detail kecil sehingga terlepas gambaran besar.'],
+  KANAN:['Suka idea baharu tetapi kadang kurang konsisten pada rutin ulang kaji.'],
+  SEIMBANG:['Elak teragak-agak antara dua pendekatan — pilih satu kaedah utama bagi setiap tugasan.'],
+  V:['Mudah terganggu bila bahan tidak tersusun.','Berhati-hati agar tidak habiskan masa mencantikkan nota berbanding menguji kefahaman.'],
+  A:['Gemar berbincang sehingga kurang masa mengulang kaji bersendirian.','Mudah terganggu oleh persekitaran yang bising.'],
+  K:['Sukar duduk lama untuk bacaan pasif — jadual rehat pendek yang kerap.','Elak tergesa-gesa buat latihan sebelum faham konsep asas.'],
+  I:['Mungkin teragak-agak bertanya bila tidak faham — beranikan diri berjumpa pensyarah.','Risiko overthinking bila terlalu lama bersendirian.'],
+  E:['Gemar berbincang sehingga kurang masa mengulang kaji secara mendalam.','Mudah hilang fokus bila terpaksa belajar solo.'],
+  AMBI:['Kenal pasti bila diri perlukan fokus solo dan bila perlukan tenaga kumpulan — jangan biar mood menentukan.']
+};
+
 // ---------- STATE ----------
 let idx=0; const ans=new Array(Q.length).fill(null);
 const app=document.getElementById('app');
@@ -243,7 +288,7 @@ function renderIntro(){
     ${CREST}
     <div class="eyebrow">Pelan Induk Peperiksaan Akhir</div>
     <h1>Kenali <span>Dirimu</span>,<br>Optimumkan Usahamu</h1>
-    <p class="sub">15 soalan ringkas untuk mengenali cara belajarmu yang tersendiri — supaya usahamu padan dengan fitrah dirimu, bukan menyalin cara orang lain.</p>
+    <p class="sub">18 soalan ringkas untuk mengenali cara belajarmu yang tersendiri — supaya usahamu padan dengan fitrah dirimu, bukan menyalin cara orang lain.</p>
     <div class="dims">
       <div class="dim"><div class="ic">🧠</div><b>OTAK</b><small>Kiri / Kanan</small></div>
       <div class="dim"><div class="ic">👁️</div><b>GAYA</b><small>V / A / K</small></div>
@@ -302,56 +347,78 @@ function winner(c){
   return {best,tie,c};
 }
 
+function pctOf(count,total){ return Math.round(count/total*100); }
+// sorted breakdown rows for a dimension
+function breakdown(counts, total, names){
+  return Object.keys(counts)
+    .map(k=>({k, name:names[k], pct:pctOf(counts[k],total)}))
+    .sort((a,b)=>b.pct-a.pct);
+}
+function barRows(items){
+  return items.map((it,i)=>`
+    <div class="brow ${i===0?'lead':''}">
+      <span class="bn">${it.name}</span>
+      <div class="mbar"><i data-w="${it.pct}"></i></div>
+      <span class="bp">${it.pct}%</span>
+    </div>`).join('');
+}
+
 function renderResult(){
   const A=winner(tally('A',['KIRI','KANAN']));
   const B=winner(tally('B',['V','A','K']));
   const C=winner(tally('C',['I','E']));
 
-  // Brain label
-  let brainLabel = A.tie ? 'Seimbang' : (A.best==='KIRI'?'Otak Kiri':'Otak Kanan');
-  let brainKey = A.tie ? 'SEIMBANG' : A.best;
-
-  // VAK label (pick top; if tie show combined short)
-  const vakName={V:'Visual',A:'Auditori',K:'Kinestetik'};
-  let bTop=B.best;
-  let vakLabel=vakName[bTop];
-
-  // Personality
-  let persLabel = C.tie ? 'Ambivert' : (C.best==='I'?'Introvert':'Extrovert');
-  let persKey = C.tie ? null : C.best;
-
   const totalA=Q.filter(q=>q.dim==='A').length;
   const totalB=Q.filter(q=>q.dim==='B').length;
   const totalC=Q.filter(q=>q.dim==='C').length;
 
-  const kiriPct=Math.round(A.c.KIRI/totalA*100);
-  const vTop=Math.round(B.c[bTop]/totalB*100);
-  const introPct=Math.round(C.c.I/totalC*100);
+  const brainName={KIRI:'Otak Kiri',KANAN:'Otak Kanan'};
+  const vakName={V:'Visual',A:'Auditori',K:'Kinestetik'};
+  const persName={I:'Introvert',E:'Extrovert'};
 
-  // profile line
+  // labels (softened)
+  const brainLabel = A.tie ? 'Seimbang' : brainName[A.best];
+  const brainKey   = A.tie ? 'SEIMBANG' : A.best;
+  const vakLabel   = vakName[B.best];
+  const persLabel  = C.tie ? 'Ambivert' : persName[C.best];
+  const persKey    = C.tie ? null : C.best;
+
+  // breakdowns (all options, sorted desc)
+  const bdA = breakdown(A.c, totalA, brainName);
+  const bdB = breakdown(B.c, totalB, vakName);
+  const bdC = breakdown(C.c, totalC, persName);
+
   const profileTitle = `${brainLabel} · <b>${vakLabel}</b> · ${persLabel}`;
 
-  // build tips
-  const vakTips = REC[bTop].tips.map(t=>`<div class="tip"><span class="b">◆</span><p>${t[0]}</p></div>`).join('');
+  // strategy tips
+  const vakTips = REC[B.best].tips.map(t=>`<div class="tip"><span class="b">◆</span><p>${t[0]}</p></div>`).join('');
   const persTips = (persKey?REC[persKey].tips:[
     ['Anda fleksibel (<b>Ambivert</b>) — seimbangkan study solo & kumpulan ikut keperluan hari itu.'],
     ['Guna waktu bersendirian untuk fokus mendalam, dan waktu kumpulan untuk uji kefahaman.']
   ]).map(t=>`<div class="tip"><span class="b">◆</span><p>${t[0]}</p></div>`).join('');
 
+  // challenges: brain(1) + vak(2) + personality(2)
+  let chal = [];
+  chal = chal.concat(CHAL[brainKey]||[]);
+  chal = chal.concat(CHAL[B.best]||[]);
+  chal = chal.concat(persKey?(CHAL[persKey]||[]):CHAL.AMBI);
+  const chalHtml = chal.map(c=>`<div class="tip"><span class="b warn">▲</span><p>${c}</p></div>`).join('');
+
   app.innerHTML=`
   <div class="result">
     <div class="idcard">
       <div class="kh">Kad Profil Diri</div>
-      <h2>Cara Belajar Terbaik Untukku</h2>
+      <h2>Kecenderungan &amp; cara belajar anda</h2>
+      <div class="cue">Anda cenderung kepada pendekatan</div>
       <div class="profile">${profileTitle}</div>
-      <div class="rows">
-        <div class="row"><span class="rl">Otak</span><span class="rv">${brainLabel}</span>
-          <div class="bar"><i data-w="${A.tie?50:kiriPct}"></i></div></div>
-        <div class="row"><span class="rl">Gaya</span><span class="rv">${vakLabel}</span>
-          <div class="bar"><i data-w="${vTop}"></i></div></div>
-        <div class="row"><span class="rl">Tenaga</span><span class="rv">${persLabel}</span>
-          <div class="bar"><i data-w="${C.tie?50:introPct}"></i></div></div>
-      </div>
+      <p class="disc">Ini <em>kecenderungan dominan</em>, bukan label mutlak — setiap orang ada campuran ketiga-tiganya.</p>
+    </div>
+
+    <div class="card block">
+      <h3>📊 Taburan Skor Anda</h3>
+      <div class="bgroup"><div class="glabel">Cara Otak</div>${barRows(bdA)}</div>
+      <div class="bgroup"><div class="glabel">Gaya Terima Maklumat</div>${barRows(bdB)}</div>
+      <div class="bgroup last"><div class="glabel">Sumber Tenaga</div>${barRows(bdC)}</div>
     </div>
 
     <div class="card block">
@@ -360,17 +427,22 @@ function renderResult(){
     </div>
 
     <div class="card block">
-      <h3>📚 Strategi Study Ikut Gaya (${vakLabel})</h3>
+      <h3>📚 Strategi Study (${vakLabel})</h3>
       ${vakTips}
     </div>
 
     <div class="card block">
-      <h3>🔋 Atur Persekitaran Ikut Tenaga (${persLabel})</h3>
+      <h3>🔋 Atur Persekitaran (${persLabel})</h3>
       ${persTips}
     </div>
 
+    <div class="card block warncard">
+      <h3>⚠️ Cabaran Yang Perlu Diberi Perhatian</h3>
+      ${chalHtml}
+    </div>
+
     <div class="pillars">
-      <div class="f"><b>Doa</b> + Usaha Ikut Fitrah Diri + <b>Tawakkal</b><br>= Keberkatan & ketenangan di dalam dewan</div>
+      <div class="f"><b>Doa</b> + Usaha Ikut Fitrah Diri + <b>Tawakkal</b><br>= Keberkatan &amp; ketenangan di dalam dewan</div>
       <p>Ikat unta dahulu dengan strategi yang padan — kemudian serahkan hasil kepada Allah.</p>
     </div>
 
@@ -384,7 +456,7 @@ function renderResult(){
   </div>`;
 
   requestAnimationFrame(()=>{
-    setTimeout(()=>document.querySelectorAll('.bar i').forEach(el=>{el.style.width=el.dataset.w+'%';}),120);
+    setTimeout(()=>document.querySelectorAll('.mbar i').forEach(el=>{el.style.width=el.dataset.w+'%';}),140);
   });
 }
 
