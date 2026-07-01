@@ -149,6 +149,37 @@
   .warncard h3::after{background:rgba(224,155,155,.22)}
   .b.warn{color:#e79b9b}
 
+  /* proven techniques card */
+  .techcard{border-color:rgba(126,196,150,.32)}
+  .techcard h3{color:#8fd0a6}
+  .techcard h3::after{background:rgba(126,196,150,.25)}
+  .techlead{font-size:13px; color:#c6cfe3; margin-bottom:14px; line-height:1.55}
+  .techlead b{color:#fff}
+  .tech{display:flex; gap:13px; padding:12px 0; border-bottom:1px solid rgba(255,255,255,.07)}
+  .tech:last-of-type{border-bottom:none}
+  .tnum{flex-shrink:0; width:30px; height:30px; border-radius:9px; display:grid; place-items:center;
+    font-family:var(--disp); font-weight:700; font-size:15px; color:#12203c;
+    background:linear-gradient(180deg,#9fdcb4,#5fae7c)}
+  .tbody{flex:1}
+  .tname{font-family:var(--disp); font-weight:600; font-size:15px; color:#fff; display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:2px}
+  .ttier{font-family:var(--body); font-weight:600; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase;
+    color:#9fb3d6; background:rgba(159,179,214,.14); border:1px solid rgba(159,179,214,.28); padding:2px 7px; border-radius:99px}
+  .ttier.top{color:#8fd0a6; background:rgba(126,196,150,.14); border-color:rgba(126,196,150,.35)}
+  .tech p{font-size:13.5px; color:#dbe2f1; line-height:1.5}
+  .islamnote{margin-top:14px; font-size:12.5px; font-style:italic; color:#c9b98f;
+    background:rgba(212,168,54,.07); border-left:2px solid var(--gold); padding:10px 12px; border-radius:0 8px 8px 0; line-height:1.55}
+  .islamnote b{color:var(--gold-soft); font-style:normal}
+  .techavoid{margin-top:12px; font-size:12.5px; color:#e0a9a9; line-height:1.5}
+  .techavoid b{color:#e79b9b; font-family:var(--disp)}
+
+  /* conclusion */
+  .conclude{text-align:center; margin-top:20px; padding:22px 20px;
+    background:linear-gradient(180deg, rgba(212,168,54,.10), rgba(212,168,54,.04));
+    border:1px solid var(--line); border-radius:16px}
+  .cq{font-family:var(--disp); font-weight:600; font-size:16px; line-height:1.5; color:#fff; letter-spacing:-.2px}
+  .cnote{font-size:12.5px; color:var(--muted); margin-top:12px; line-height:1.55}
+  .cnote b{color:var(--gold-soft)}
+
   .block{margin-top:20px}
   .block h3{font-family:var(--disp); font-size:13px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; display:flex; align-items:center; gap:8px}
   .block h3::after{content:""; flex:1; height:1px; background:var(--line)}
@@ -189,18 +220,18 @@ const CREST = `<svg class="crest" viewBox="0 0 100 100" xmlns="http://www.w3.org
 // dim: A=brain(kiri/kanan), B=VAK(V/A/K), C=personality(I/E)
 const Q = [
   // Bahagian A — Otak
-  {dim:'A', sec:'Bahagian 1 · Cara Otak Bekerja', q:'Bila belajar topik baharu, saya lebih suka…',
-    opts:[['KIRI','Mulakan dengan fakta, langkah & rumus'],['KANAN','Faham gambaran besar & "kenapa" dahulu']]},
-  {dim:'A', sec:'Bahagian 1 · Cara Otak Bekerja', q:'Nota ulang kaji saya biasanya…',
-    opts:[['KIRI','Tersusun, bernombor, ringkas'],['KANAN','Berwarna, ada gambar / peta minda']]},
-  {dim:'A', sec:'Bahagian 1 · Cara Otak Bekerja', q:'Bila buat keputusan, saya lebih ikut…',
-    opts:[['KIRI','Logik, data & sebab-akibat'],['KANAN','Gerak hati & perasaan']]},
-  {dim:'A', sec:'Bahagian 1 · Cara Otak Bekerja', q:'Masalah rumit paling mudah saya selesaikan dengan…',
-    opts:[['KIRI','Pecahkan langkah demi langkah'],['KANAN','Cari idea kreatif luar kotak']]},
-  {dim:'A', sec:'Bahagian 1 · Cara Otak Bekerja', q:'Saya paling selesa bila ada…',
-    opts:[['KIRI','Jadual & peraturan yang jelas'],['KANAN','Kebebasan & ruang fleksibel']]},
-  {dim:'A', sec:'Bahagian 1 · Cara Otak Bekerja', q:'Saya lebih tertarik kepada…',
-    opts:[['KIRI','Fakta & bukti yang tepat'],['KANAN','Kemungkinan & idea besar']]},
+  {dim:'A', sec:'Bahagian 1 · Minda & Sikap', q:'Bila saya gagal dalam sesuatu ujian, saya rasa…',
+    opts:[['GROWTH','Saya belum kuasai lagi — perlu ubah cara belajar'],['FIXED','Mungkin saya memang tak berbakat subjek ini']]},
+  {dim:'A', sec:'Bahagian 1 · Minda & Sikap', q:'Bila kawan lebih pandai daripada saya, saya…',
+    opts:[['GROWTH','Belajar caranya & cuba tingkatkan diri'],['FIXED','Rasa dia bijak semula jadi, saya tak sampai']]},
+  {dim:'A', sec:'Bahagian 1 · Minda & Sikap', q:'Cabaran yang susah membuat saya…',
+    opts:[['GROWTH','Teruja — peluang untuk berkembang'],['FIXED','Ingin elak — takut nampak lemah']]},
+  {dim:'A', sec:'Bahagian 1 · Minda & Sikap', q:'Bila diberi teguran / kritikan, saya…',
+    opts:[['GROWTH','Guna ia untuk baiki kelemahan'],['FIXED','Rasa tersinggung atau kecil hati']]},
+  {dim:'A', sec:'Bahagian 1 · Minda & Sikap', q:'Pada saya, kepandaian ialah…',
+    opts:[['GROWTH','Boleh dibina dengan latihan & usaha'],['FIXED','Bakat semula jadi yang tetap']]},
+  {dim:'A', sec:'Bahagian 1 · Minda & Sikap', q:'Bila usaha saya belum membuahkan hasil, saya…',
+    opts:[['GROWTH','Teruskan & ubah strategi'],['FIXED','Mula rasa buang masa, nak berputus asa']]},
   // Bahagian B — VAK
   {dim:'B', sec:'Bahagian 2 · Gaya Terima Maklumat', q:'Saya paling faham arahan bila…',
     opts:[['V','Melihat gambar, video atau contoh'],['A','Mendengar penjelasan lisan'],['K','Mencuba sendiri terus']]},
@@ -259,17 +290,17 @@ const REC = {
     ['Cari <b>study partner</b> untuk kekal bermotivasi.'],
     ['<span class="avoid">Elak:</span> study solo terlalu lama sehingga hilang motivasi.']]},
 };
-const BRAIN = {
-  KIRI:'Kekuatan anda ialah <b>susunan</b>. Manfaatkannya: buat jadual & senarai semak, latih tubi berstruktur, dan susun nota secara sistematik.',
-  KANAN:'Kekuatan anda ialah <b>gambaran besar</b>. Mulakan setiap bab dengan konsep menyeluruh & kaitkan dengan cerita/makna sebelum masuk ke detail.',
-  SEIMBANG:'Anda seorang <b>pemikir bersepadu</b> — rangka gambaran besar dahulu, kemudian isi butiran secara tersusun. Gabungan terbaik kedua-dua dunia.'
+const MINDSET = {
+  GROWTH:'Anda cenderung percaya kebolehan boleh <b>berkembang dengan usaha</b> — asas ketahanan menghadapi kegagalan sementara. Teruskan: lihat kesukaran sebagai latihan otak, bukan bukti "tak pandai".',
+  FIXED:'Anda kadang merasa kebolehan itu <b>tetap</b> ("saya memang tak pandai subjek ini"). Berita baik: minda ini sendiri boleh diubah. Tukar ayat "saya tak boleh" kepada <b>"saya belum boleh lagi"</b> — setiap usaha benar-benar membentuk otak.',
+  SEIMBANG:'Minda anda bercampur — kadang yakin boleh berkembang, kadang rasa terhad. Sedari bila suara "fixed" muncul (biasanya selepas gagal), dan ganti fokus kepada <b>usaha & proses</b>, bukan label pandai/tak pandai.'
 };
 
 // Cabaran / risiko yang perlu diberi perhatian ikut kecenderungan
 const CHAL = {
-  KIRI:['Boleh terlalu fokus pada detail kecil sehingga terlepas gambaran besar.'],
-  KANAN:['Suka idea baharu tetapi kadang kurang konsisten pada rutin ulang kaji.'],
-  SEIMBANG:['Elak teragak-agak antara dua pendekatan — pilih satu kaedah utama bagi setiap tugasan.'],
+  GROWTH:['Pastikan keyakinan "boleh berkembang" disusuli tindakan konsisten — optimisme perlu ada strategi.'],
+  FIXED:['Perhatikan ayat dalaman "saya memang tak boleh" — ia menghadkan usaha sebelum mula. Tukar kepada "saya belum boleh lagi".'],
+  SEIMBANG:['Sedari bila suara "fixed" muncul (biasanya selepas gagal) & alihkan fokus kepada usaha, bukan bakat.'],
   V:['Mudah terganggu bila bahan tidak tersusun.','Berhati-hati agar tidak habiskan masa mencantikkan nota berbanding menguji kefahaman.'],
   A:['Gemar berbincang sehingga kurang masa mengulang kaji bersendirian.','Mudah terganggu oleh persekitaran yang bising.'],
   K:['Sukar duduk lama untuk bacaan pasif — jadual rehat pendek yang kerap.','Elak tergesa-gesa buat latihan sebelum faham konsep asas.'],
@@ -277,6 +308,15 @@ const CHAL = {
   E:['Gemar berbincang sehingga kurang masa mengulang kaji secara mendalam.','Mudah hilang fokus bila terpaksa belajar solo.'],
   AMBI:['Kenal pasti bila diri perlukan fokus solo dan bila perlukan tenaga kumpulan — jangan biar mood menentukan.']
 };
+
+// 5 teknik study terbukti (sama untuk semua profil)
+const TECH = [
+  {n:'1', tier:'Paling kukuh', name:'Active Recall', desc:'Tutup nota, cuba ingat semula, baru semak. Uji diri — jangan sekadar baca ulang.'},
+  {n:'2', tier:'Paling kukuh', name:'Spaced Practice', desc:'Sebarkan ulang kaji: hari 1, 3, 7, 14. Elak tumpuk semua pada saat akhir (cramming).'},
+  {n:'3', tier:'Sangat membantu', name:'Interleaving', desc:'Selang-seli topik & jenis soalan dalam satu sesi — seperti keadaan sebenar dalam dewan.'},
+  {n:'4', tier:'Sangat membantu', name:'Elaboration', desc:'Tanya "kenapa" & "bagaimana"; terangkan dengan ayat sendiri; ajar orang lain.'},
+  {n:'5', tier:'Sangat membantu', name:'Dual Coding', desc:'Gabungkan perkataan dengan rajah / carta alir. Di sinilah gaya Visual jadi pelengkap.'},
+];
 
 // ---------- STATE ----------
 let idx=0; const ans=new Array(Q.length).fill(null);
@@ -290,7 +330,7 @@ function renderIntro(){
     <h1>Kenali <span>Dirimu</span>,<br>Optimumkan Usahamu</h1>
     <p class="sub">18 soalan ringkas untuk mengenali cara belajarmu yang tersendiri — supaya usahamu padan dengan fitrah dirimu, bukan menyalin cara orang lain.</p>
     <div class="dims">
-      <div class="dim"><div class="ic">🧠</div><b>OTAK</b><small>Kiri / Kanan</small></div>
+      <div class="dim"><div class="ic">🌱</div><b>MINDA</b><small>Growth / Fixed</small></div>
       <div class="dim"><div class="ic">👁️</div><b>GAYA</b><small>V / A / K</small></div>
       <div class="dim"><div class="ic">🔋</div><b>TENAGA</b><small>Introvert / Extrovert</small></div>
     </div>
@@ -364,7 +404,7 @@ function barRows(items){
 }
 
 function renderResult(){
-  const A=winner(tally('A',['KIRI','KANAN']));
+  const A=winner(tally('A',['GROWTH','FIXED']));
   const B=winner(tally('B',['V','A','K']));
   const C=winner(tally('C',['I','E']));
 
@@ -372,19 +412,19 @@ function renderResult(){
   const totalB=Q.filter(q=>q.dim==='B').length;
   const totalC=Q.filter(q=>q.dim==='C').length;
 
-  const brainName={KIRI:'Otak Kiri',KANAN:'Otak Kanan'};
+  const mindName={GROWTH:'Growth',FIXED:'Fixed'};
   const vakName={V:'Visual',A:'Auditori',K:'Kinestetik'};
   const persName={I:'Introvert',E:'Extrovert'};
 
   // labels (softened)
-  const brainLabel = A.tie ? 'Seimbang' : brainName[A.best];
+  const brainLabel = A.tie ? 'Seimbang' : mindName[A.best];
   const brainKey   = A.tie ? 'SEIMBANG' : A.best;
   const vakLabel   = vakName[B.best];
   const persLabel  = C.tie ? 'Ambivert' : persName[C.best];
   const persKey    = C.tie ? null : C.best;
 
   // breakdowns (all options, sorted desc)
-  const bdA = breakdown(A.c, totalA, brainName);
+  const bdA = breakdown(A.c, totalA, mindName);
   const bdB = breakdown(B.c, totalB, vakName);
   const bdC = breakdown(C.c, totalC, persName);
 
@@ -416,14 +456,14 @@ function renderResult(){
 
     <div class="card block">
       <h3>📊 Taburan Skor Anda</h3>
-      <div class="bgroup"><div class="glabel">Cara Otak</div>${barRows(bdA)}</div>
+      <div class="bgroup"><div class="glabel">Minda &amp; Sikap</div>${barRows(bdA)}</div>
       <div class="bgroup"><div class="glabel">Gaya Terima Maklumat</div>${barRows(bdB)}</div>
       <div class="bgroup last"><div class="glabel">Sumber Tenaga</div>${barRows(bdC)}</div>
     </div>
 
     <div class="card block">
-      <h3>🧠 Kekuatan Otak Anda</h3>
-      <div class="tip"><span class="b">◆</span><p>${BRAIN[brainKey]}</p></div>
+      <h3>🌱 Sikap Minda Anda</h3>
+      <div class="tip"><span class="b">◆</span><p>${MINDSET[brainKey]}</p></div>
     </div>
 
     <div class="card block">
@@ -439,6 +479,26 @@ function renderResult(){
     <div class="card block warncard">
       <h3>⚠️ Cabaran Yang Perlu Diberi Perhatian</h3>
       ${chalHtml}
+    </div>
+
+    <div class="card block techcard">
+      <h3>✅ 5 Teknik Study Terbukti — Untuk Semua Profil</h3>
+      <p class="techlead">Profil di atas untuk <b>kenal diri &amp; kekal bermotivasi</b>. Tetapi kaedah di bawah ini terbukti (sains kognitif) menaikkan markah untuk <b>semua jenis pelajar</b> — tanpa mengira profil:</p>
+      ${TECH.map(t=>`
+        <div class="tech">
+          <span class="tnum">${t.n}</span>
+          <div class="tbody">
+            <div class="tname">${t.name}<span class="ttier ${t.tier==='Paling kukuh'?'top':''}">${t.tier}</span></div>
+            <p>${t.desc}</p>
+          </div>
+        </div>`).join('')}
+      <div class="islamnote">Selari dengan tradisi Islam: <b>muraja'ah</b> (mengulang hafalan berjarak) &amp; penurunan wahyu secara beransur (<b>munajjaman</b>) selama 23 tahun — bukan sekali gus.</div>
+      <div class="techavoid"><b>Elak:</b> baca ulang pasif, highlight berlebihan &amp; salin nota semula — terasa "sibuk belajar" tetapi lemah kesannya.</div>
+    </div>
+
+    <div class="conclude">
+      <div class="cq">"Kenali dirimu untuk selesa &amp; bermotivasi — tetapi belajarlah dengan kaedah yang terbukti berkesan untuk semua."</div>
+      <div class="cnote">Dua tunjang paling kukuh secara kajian: <b>Growth Mindset</b> (kebolehan boleh berkembang) &amp; <b>Disiplin diri</b> — inilah Pilar 2 (Usaha &amp; Disiplin) dalam bahasa sains.</div>
     </div>
 
     <div class="pillars">
