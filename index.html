@@ -318,6 +318,20 @@ const TECH = [
   {n:'5', tier:'Sangat membantu', name:'Dual Coding', desc:'Gabungkan perkataan dengan rajah / carta alir. Di sinilah gaya Visual jadi pelengkap.'},
 ];
 
+// ---------- TRACKING ----------
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxFErSyAFGO4MBjbaFRVKVGEyyh9T6NazfIlTiijBLJ45Z3LfQPaoyrn6ak7U0MuvbjOQ/exec';
+
+function trackResult(data){
+  try {
+    fetch(SHEET_URL, {
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(data)
+    });
+  } catch(e){ /* senyap — jangan ganggu pengalaman pelajar */ }
+}
+
 // ---------- STATE ----------
 let idx=0; const ans=new Array(Q.length).fill(null);
 const app=document.getElementById('app');
@@ -429,6 +443,17 @@ function renderResult(){
   const bdC = breakdown(C.c, totalC, persName);
 
   const profileTitle = `${brainLabel} · <b>${vakLabel}</b> · ${persLabel}`;
+
+  // Hantar data ke Google Sheets
+  trackResult({
+    minda       : brainLabel,
+    minda_pct   : bdA[0].pct,
+    gaya        : vakLabel,
+    gaya_pct    : bdB[0].pct,
+    tenaga      : persLabel,
+    tenaga_pct  : bdC[0].pct,
+    profil      : `${brainLabel} · ${vakLabel} · ${persLabel}`
+  });
 
   // strategy tips
   const vakTips = REC[B.best].tips.map(t=>`<div class="tip"><span class="b">◆</span><p>${t[0]}</p></div>`).join('');
